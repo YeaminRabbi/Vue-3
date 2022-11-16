@@ -6,10 +6,32 @@
     <button @click="handleClick">Click me</button>
   </div> -->
 
-  <div v-if="showModal">
-    <Modal :header="header" :text="text" theme="sale" @close="toggleModal"></Modal>
-  </div>
+  <teleport to=".modals" v-if="showModal">
+    <!-- <Modal :header="header" :text="text" theme="sale" @close="toggleModal"></Modal> -->
+    <Modal  theme="sale" @close="toggleModal">
+      <template v-slot:links>
+        <a href="#">Sign up now</a>
+        <a href="#">More info</a>
+      </template>   
+      
+      <h1>Ninja Turtle</h1>
+      <p>Grab your ninja swag for half price!</p>
+
+    </Modal>
+  </teleport>
+
+
+  <teleport to=".modals" v-if="showModalTwo">
+    <!-- <Modal :header="header" :text="text" theme="sale" @close="toggleModal"></Modal> -->
+    <Modal  @close="toggleModalTwo">
+      <h1>Sign up tp the newsletter</h1>
+      <p>For updates and promo codes</p>
+    </Modal>
+  </teleport>
+
+
   <button @click.alt="toggleModal">Toggle Modal (alt)</button>
+  <button @click="toggleModalTwo">Toggle Modal</button>
 </template>
 
 <script>
@@ -26,6 +48,7 @@ export default {
       header: "Sign up for giveaway",
       text: 'Grab your ninga swag for half price!',
       showModal: false,
+      showModalTwo: false,
     }
   },
   methods: {
@@ -37,6 +60,9 @@ export default {
     },
     toggleModal(){
       this.showModal =!this.showModal
+    },
+    toggleModalTwo(){
+      this.showModalTwo =!this.showModalTwo
     }
   }
 }
