@@ -16,14 +16,16 @@
 
 
         <div class="terms">
-            <input type="checkbox" id="termsConditions">
+            <input type="checkbox" id="termsConditions" v-model="terms">
             <label for="termsConditions">Accept Terms and Conditions</label>
         </div>
+
     </form>
 
     <p>Email: {{ email }}</p>
     <p>Password: {{ password }}</p>
     <p>Role: {{ role }}</p>
+    <p>Terms Accepted: {{ terms }}</p>
 </template>
 
 
@@ -33,7 +35,9 @@ export default{
         return{
             email:'',
             password:'',
-            role:'',
+            role: '',
+            terms: false,
+            names:[],
         }
     }
 }
