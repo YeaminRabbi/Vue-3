@@ -14,6 +14,11 @@
             <option value="designer">Web Designer</option>
         </select>
 
+        <label for="">Skills:</label>
+        <input type="text" v-model="tempSkill" @keyup.alt="addSkill">
+        <div v-for="skill in skills" :key="skill" class="pills">
+            <span @click="deleteSkill(skill)">{{ skill }}</span>
+        </div>
 
         <div class="terms">
             <input type="checkbox" id="termsConditions" v-model="terms">
@@ -38,8 +43,27 @@ export default{
             role: '',
             terms: false,
             names:[],
+            tempSkill:'',
+            skills:[],
         }
-    }
+    },
+    methods:{
+        addSkill(e)
+        {
+            // console.log(e)
+            if(e.key === ',' && this.tempSkill){
+                if(!this.skills.includes(this.tempSkill)){
+                    this.skills.push(this.tempSkill)
+                }
+                this.tempSkill = ''
+            }
+        },
+        deleteSkill(skill){
+            this.skills = this.skills.filter((item) => {
+                return skill !== item
+            })
+        },
+    },
 }
 </script>
 
@@ -80,5 +104,18 @@ input[type="checkbox"]{
     margin: 0 10px 0 0;
     position: relative;
     top: 2px;
+}
+
+.pills{
+    display: inline-block;
+    margin: 20px 10px 0 0;
+    padding: 6px 12px;
+    background: #eee;
+    border-radius: 20px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    color: #777;
+    cursor: pointer;
 }
 </style>
